@@ -1,0 +1,20 @@
+################配置数据源###################
+spring:
+  #  配置数据源
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3366/company
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #自定义druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+  ################整合redis配置###################
+  redis:
+    host: 192.168.1.105
+    port: 6379
+mybatis:
+  #  config-location: classpath:
+  #  mapper.xml文件应该放在类路径resources下
+  mapper-locations: classpath:mapper/*.xml
+  #  config-location: classpath:mybatis.xml  指定mybatis配置文件路径
