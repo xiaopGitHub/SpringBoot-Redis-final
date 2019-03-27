@@ -1,10 +1,8 @@
 package com.xp.config;
 
 import com.xp.pojo.User;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -16,8 +14,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.net.UnknownHostException;
 import java.time.Duration;
-import java.util.LinkedHashSet;
-import java.util.List;
 
 /**
  * @Author xp
