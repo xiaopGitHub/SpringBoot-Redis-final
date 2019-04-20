@@ -27,7 +27,7 @@ public class EmpService implements IEmpService {
     public User selectByPrimaryKey(Integer id) {
         System.out.println("第二次进入此方法,没有查询缓存............");
 
-        //通过缓存管理器进行api调用操作缓存
+        //通过缓存管理器进行api调用操作缓存,获取的为json格式数据
         Cache cache = JsonCacheManager.getCache("user");
         //添加缓存
         cache.put("user:1", new User(20,"lucas" ,"4567893" , "aaa", 10000, 3));

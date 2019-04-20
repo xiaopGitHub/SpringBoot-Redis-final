@@ -1,8 +1,11 @@
 package com.xp;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
+
 /**
  * redis的starter,在容器中默认保存的是RedisCacheManager,
  * 帮我们创建RedisCache缓存组件，该组件通过操作redis来缓存数据。
@@ -15,6 +18,7 @@ import org.springframework.cache.annotation.EnableCaching;
  *
  *
  * */
+@MapperScan("com.xp.dao")
 @SpringBootApplication
 @EnableCaching
 public class SpringBootRedisApplication {

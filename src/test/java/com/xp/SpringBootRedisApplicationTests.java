@@ -51,9 +51,4 @@ public class SpringBootRedisApplicationTests {
         myRedisTemplate.opsForValue().set("user1",u );
     }
 
-    @Test
-    public void contextLoads() {
-
-    }
-
 }
