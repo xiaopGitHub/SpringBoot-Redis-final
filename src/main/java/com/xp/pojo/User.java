@@ -3,6 +3,7 @@ package com.xp.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+//要序列化
 public class User implements Serializable {
     private Integer id;
 

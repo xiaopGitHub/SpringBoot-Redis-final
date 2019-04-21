@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
  * 我们要缓存保存为json格式:
  * 1.需要自定义CacheManager,替换掉默认的RedisCacheManager
  *
- *
  * */
 @MapperScan("com.xp.dao")
 @SpringBootApplication

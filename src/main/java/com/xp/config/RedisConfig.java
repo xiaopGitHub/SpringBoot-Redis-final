@@ -30,14 +30,17 @@ public class RedisConfig {
     public RedisTemplate<Object, User> myRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
         RedisTemplate<Object, User> template = new RedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
+
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
+        //自定义json序列化器,替代默认的JdkSerializationRedisSerializer序列化器
         template.setDefaultSerializer(serializer);
+
         return template;
     }
 
 
     /**
-     * 自定义缓存管理器,以json格式缓存数据
+     * 自定义缓存管理器CacheManager,以json格式缓存数据
      * 序列化缓存的对象，必须要有空的构造方法,
      * 否则无法从缓存中获取反序列化数据,并报错
      *

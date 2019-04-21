@@ -18,9 +18,16 @@
     from users
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+<select id="selectByPrimaryName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{userName}
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from users
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.xp.pojo.User">
     insert into users (id, username, password, 

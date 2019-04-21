@@ -1,0 +1,34 @@
+
+SpringBoot整合Redis步骤:
+
+1. 引入redis(引入后RedisAutoConfiguration自动配置类就生效了,
+             该类提供了RedisTemplate和StringRedisTemplate两个模板来操作redis,只用自动注入就可使用)
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+
+2. 配置redis（简单配置）
+    redis:
+        host: 192.168.1.105
+        port: 6379
+
+3.自动注入redis操作模板来操作redis
+  StringRedisTemplate //简化操作字符串,操作的k-v都是字符串的
+  RedisTemplate //操作的k-v都是对象
+
+4. 由于RedisTemplate在缓存对象时,使用的默认序列化器JdkSerializationRedisSerializer
+   无法将对象转换为json格式缓存,因此我们自己新建配置类(参考RedisAutoConfiguration的配置方法),
+   要给模板设置自定义的json序列化器GenericJackson2JsonRedisSerializer来替代默认的序列化器
+
+   @Bean
+   public RedisTemplate<Object, User> myRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
+       RedisTemplate<Object, User> template = new RedisTemplate();
+       template.setConnectionFactory(redisConnectionFactory);
+       GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
+       //自定义json序列化器,替代默认的JdkSerializationRedisSerializer序列化器
+       template.setDefaultSerializer(serializer);
+       return template;
+   }
+
+

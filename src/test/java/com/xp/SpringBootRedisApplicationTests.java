@@ -13,16 +13,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringBootRedisApplicationTests {
 
-    //k-v都是对象
-    @Autowired
-    RedisTemplate redisTemplate;
-
     //简化操作字符串的redis模板
     @Autowired
-    StringRedisTemplate stringRedisTemplate;
+    StringRedisTemplate stringRedisTemplate;//简化操作字符串,操作的k-v都是字符串的
 
+    /* @Autowired
+    RedisTemplate redisTemplate;//操作的k-v都是对象*/
+
+   //注入我们自定义json序列化其的redisTemplate
     @Autowired
-    RedisTemplate<Object, User> myRedisTemplate;
+    RedisTemplate<Object,User> redisTemplate;
 
 
     /**
@@ -38,17 +38,20 @@ public class SpringBootRedisApplicationTests {
     @Test
     public void test01(){
         //操作字符串,保存数据
-//        stringRedisTemplate.opsForValue().append("k1","hello" );
-//        String k1 = stringRedisTemplate.opsForValue().get("k1");
-//        System.out.println(k1+"   ======================================");
+/*        stringRedisTemplate.opsForValue().append("k1","hello" );
+        String k1 = stringRedisTemplate.opsForValue().get("k1");
+        System.out.println(k1+"   ======================================");*/
 
         //保存对象,但保存的是序列化后的数据
-//        User u=new User(1,"jack" ,"123456789" ,"jerry" , 11000, 1);
-//        redisTemplate.opsForValue().set("user1",u );
+/*        User u=new User(1,"jack" ,"123456789" ,"jerry" , 11000, 1);
+        redisTemplate.opsForValue().set("user1",u );*/
 
         //保存自定义序列化对象
+        //方法1:自己将对象转换为json
+        //方法2:RedisTemplate默认序列化器为JdkSerializationRedisSerializer,
+        // 无法将对象序列化后保存为json格式,需要自定义配置json的序列化器
         User u=new User(1,"jack" ,"123456789" ,"jerry" , 11000, 2);
-        myRedisTemplate.opsForValue().set("user1",u );
+        redisTemplate.opsForValue().set("user1",u );
     }
 
 }
