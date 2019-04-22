@@ -24,7 +24,8 @@ import java.time.Duration;
 public class RedisConfig {
 
     /**
-     * 为RedisTemplate自定义序列化器,序列化为json
+     * 为RedisTemplate自定义序列化器,序列化为json,
+     * redis客户端的数据显示为json格式
      */
     @Bean
     public RedisTemplate<Object, User> myRedisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
@@ -42,7 +43,7 @@ public class RedisConfig {
     /**
      * 自定义缓存管理器CacheManager,以json格式缓存数据
      * 序列化缓存的对象，必须要有空的构造方法,
-     * 否则无法从缓存中获取反序列化数据,并报错
+     * 否则无法从缓存中获取反序列化数据，即从缓存中获取的数据也是json格式的
      *
      * */
     @Bean
