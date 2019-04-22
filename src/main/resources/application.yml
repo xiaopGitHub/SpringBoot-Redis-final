@@ -40,3 +40,14 @@ mybatis:
   #  mapper.xml文件应该放在类路径resources下
   mapper-locations: classpath:mapper/*.xml
   #  config-location: classpath:mybatis.xml  指定mybatis配置文件路径
+  
+  #消息队列监听配置
+  listener:
+      # 消息投递模式：direct
+      direct:
+        prefetch: 1
+        consumers-per-queue: 1
+        acknowledge-mode: auto
+      ## Consumer 并发数
+      simple:
+        max-concurrency: 1
