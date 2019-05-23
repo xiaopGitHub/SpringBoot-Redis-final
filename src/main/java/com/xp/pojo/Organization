@@ -1,0 +1,127 @@
+package com.oneconnect.sg.domain;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oneconnect.sg.annotations.NotEmpty;
+import com.oneconnect.sg.annotations.ValidId;
+import com.oneconnect.sg.annotations.ValidLength;
+import com.oneconnect.sg.annotations.ValidObjId;
+import com.oneconnect.sg.common.ErrorCodeConstant;
+import com.oneconnect.sg.common.constant.CountryCode;
+import com.oneconnect.sg.common.constant.Currency;
+import com.oneconnect.sg.common.constant.Locale;
+import com.oneconnect.sg.common.constant.OrgStatus;
+import com.oneconnect.sg.common.validator.UpdateOp;
+
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Organization {
+
+    @ValidId(errorCode = ErrorCodeConstant.INVALID_ORG_ID, groups = UpdateOp.class)
+    private Long id;
+
+    @ValidLength(min=3, max = 50, errorCode = ErrorCodeConstant.INVALID_ORG_NAME_LENGTH)
+    @NotEmpty(errorCode = ErrorCodeConstant.EMPTY_ORG_NAME)
+    private String name;
+
+    @ValidLength(min=3, max = 15, errorCode = ErrorCodeConstant.INVALID_ORG_CODE_LENGTH)
+    @NotEmpty(errorCode = ErrorCodeConstant.EMPTY_ORG_CODE)
+    private String code;
+
+    private Integer hierarchy;
+
+    @NotEmpty(errorCode = ErrorCodeConstant.INVALID_ORG_STATUS)
+    private OrgStatus status;
+
+    @ValidObjId(errorCode = ErrorCodeConstant.INVALID_ORG_PARENT_ID)
+    private Organization parent;
+
+    private List<Currency> currencies;
+
+    private List<Locale> languages;
+
+    private CountryCode country;
+
+    private Boolean isShariah;
+
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<Currency> currencies) {
+        this.currencies = currencies;
+    }
+
+    public List<Locale> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Locale> languages) {
+        this.languages = languages;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getHierarchy() {
+        return hierarchy;
+    }
+
+    public void setHierarchy(Integer hierarchy) {
+        this.hierarchy = hierarchy;
+    }
+
+    public OrgStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrgStatus status) {
+        this.status = status;
+    }
+
+    public Organization getParent() {
+        return parent;
+    }
+
+    public void setParent(Organization parent) {
+        this.parent = parent;
+    }
+
+    public CountryCode getCountry() {
+        return country;
+    }
+
+    public void setCountry(CountryCode country) {
+        this.country = country;
+    }
+
+    public Boolean getIsShariah() {
+        return isShariah;
+    }
+
+    public void setIsShariah(Boolean isShariah) {
+        this.isShariah = isShariah;
+    }
+
+}
