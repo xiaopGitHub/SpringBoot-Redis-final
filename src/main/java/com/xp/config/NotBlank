@@ -1,0 +1,44 @@
+package com.oneconnect.sg.annotations;
+
+import com.oneconnect.sg.common.ErrorCodeConstant;
+import com.oneconnect.sg.common.exception.InvalidInputException;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER})
+@Documented
+@Constraint(validatedBy = NotBlank.NotBlankValidator.class)
+public @interface NotBlank {
+    ErrorCodeConstant errorCode() default ErrorCodeConstant.SYSTEM_ERROR;
+
+    String message() default "invalid input";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    class NotBlankValidator implements ConstraintValidator<NotBlank, Object> {
+        private ErrorCodeConstant errorCode;
+
+        @Override
+        public void initialize(NotBlank constraintAnnotation) {
+            this.errorCode = constraintAnnotation.errorCode();
+        }
+
+        @Override
+        public boolean isValid(Object obj, ConstraintValidatorContext context) {
+            if (!StringUtils.isBlank(obj.toString())) {
+                return true;
+            }
+            throw new InvalidInputException(errorCode);
+        }
+
+
+    }
+}
