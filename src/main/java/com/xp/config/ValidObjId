@@ -1,0 +1,51 @@
+package com.oneconnect.sg.annotations;
+
+import com.oneconnect.sg.common.ErrorCodeConstant;
+import com.oneconnect.sg.common.exception.InvalidInputException;
+import com.oneconnect.sg.domain.Organization;
+
+import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER})
+@Documented
+@Constraint(validatedBy = ValidObjId.ValidObjIdValidator.class)
+public @interface ValidObjId {
+    ErrorCodeConstant errorCode();
+
+    String message() default "invalid id";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    class ValidObjIdValidator implements ConstraintValidator<ValidObjId, Object> {
+        private ErrorCodeConstant errorCode;
+
+        @Override
+        public void initialize(ValidObjId constraintAnnotation) {
+            this.errorCode = constraintAnnotation.errorCode();
+        }
+
+        @Override
+        public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext) {
+            Long id = null;
+
+            if (obj != null) {
+                if (obj instanceof Organization) {
+                    id = ((Organization) obj).getId();
+                }
+            }
+
+            if (id != null) {
+                return true;
+            }
+
+            throw new InvalidInputException(errorCode);
+        }
+    }
+}
