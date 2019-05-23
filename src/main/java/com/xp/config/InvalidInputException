@@ -1,0 +1,40 @@
+package com.oneconnect.sg.common.exception;
+
+import com.oneconnect.sg.common.ErrorCodeConstant;
+
+/**
+ * @author zoumengfan140 on 2018/11/29.
+ * @version 1.0
+ * @description
+ */
+public class InvalidInputException extends RuntimeException {
+    private static final long serialVersionUID = 5749318028722265963L;
+
+    private ErrorCodeConstant code;
+
+    public InvalidInputException() {
+        this.code = ErrorCodeConstant.INVALID_INPUT;
+    }
+
+    public InvalidInputException(ErrorCodeConstant code) {
+        this.code = code;
+    }
+
+    public InvalidInputException(String message) {
+        super(message);
+        this.code = ErrorCodeConstant.INVALID_INPUT;
+    }
+
+    public InvalidInputException(ErrorCodeConstant code, String message) {
+        super(message);
+        this.code = (code == null) ? ErrorCodeConstant.INVALID_INPUT : code;
+    }
+
+    public ErrorCodeConstant getCode() {
+        return code;
+    }
+
+    public void setCode(ErrorCodeConstant code) {
+        this.code = code;
+    }
+}
